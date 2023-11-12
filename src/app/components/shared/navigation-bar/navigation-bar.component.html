@@ -1,0 +1,15 @@
+<hr class="lineOne"/>
+<mat-toolbar>
+    <div class="container">
+        <div class="title" (click)="goToMain()">OMDB Search</div>
+        <div class="search">
+            <span class="searchLabel">Search a movie</span>
+            <input type="text" #searchInput >
+            <button mat-raised-button color="primary" class="searchBtn" (click)="onSearchButtonClick(searchInput.value)">SEARCH</button>
+        </div>
+    </div>
+</mat-toolbar>
+<hr class="lineTwo"/>
+<br>
+<app-alert [message]="this.alertService.alertMessage" [isError]="this.alertService.isError" ></app-alert>
+<router-outlet></router-outlet>

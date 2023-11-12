@@ -1,0 +1,40 @@
+<div *ngIf="loading" class="spinner__loading">
+    <mat-progress-spinner
+        diameter="50"
+        mode="indeterminate">
+    </mat-progress-spinner>
+</div>
+
+<div class="container" *ngIf="!loading">
+    <div *ngFor="let movie of movies" [ngClass]="{'itemExtend': detailsVisibility[movie.imdbID], 'item': !detailsVisibility[movie.imdbID]}" (click)="hideInfo(movie.imdbID)"> 
+        <mat-card class="card">
+            <div [ngClass]="{'movieContainerExtend': detailsVisibility[movie.imdbID], 'movieContainer': !detailsVisibility[movie.imdbID]}">
+                <div class="left">
+                    <img class="moviePoster" [src]="movie.Poster" alt="{{ movie.Title }} Poster">
+                </div>
+                <div class="right">
+                    <h4 [ngClass]="{'titleExtend': detailsVisibility[movie.imdbID], 'title': !detailsVisibility[movie.imdbID]}">{{movie.Title}}</h4>
+                    <div class="infoSection" *ngIf="detailsVisibility[movie.imdbID]">
+                            <span class="label">Plot</span>
+                            <div class="content">{{movieInfo.Plot}}</div>
+                            <br>
+                            <span class="label">Actors</span>
+                            <div class="content">{{movieInfo.Actors}}</div>
+                            <br>
+                            <span class="label">Ratings</span>
+                            <div *ngFor="let item of movieInfo.Ratings">
+                                -{{item.Source}} : {{item.Value}}
+                            </div>
+                    </div>
+                    <div class="lineBreak" [ngClass]="{'lineBreakReduced': detailsVisibility[movie.imdbID], 'lineBreak': !detailsVisibility[movie.imdbID]}"> 
+                        <hr class="footerline"/>
+                        <div class="footer">
+                            <p class="movieYear">{{movie.Year}}</p>
+                            <button *ngIf="!detailsVisibility[movie.imdbID]" class="movieInfo" mat-raised-button color="primary" (click)="getMovieInfo(movie.imdbID)">DETAILS</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
